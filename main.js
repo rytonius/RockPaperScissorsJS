@@ -1,106 +1,115 @@
 /*
-    get player choice between rock, paper scissors
+    get player choice between Rock, Paper Scissors
     let computer choose a choice
     see who wins
     repeat until someone wins best out of 3
 */
 let PlayerScore = 0, ComputerScore = 0;
+const ButtonList = ["Rock", "Paper", "Scissors"];
+let EndGame = Boolean(false)
+Info = document.querySelector('info')
+Score = document.querySelector('Score')
+Info.textContent = "First one to 2 points wins"
 
-function StartDiceGame() 
-{
-    console.log("First one to 3 points wins")
-    
-    do {
-        playerSelection  = PlayerChoice();
-        computerSelection = GetComputerChoice();
-        ScoreGame(playerSelection, computerSelection);
-    } while (PlayerScore < 2 || ComputerScore < 2)
+function StartRPS() {
+    const Buttons = document.querySelectorAll('button');
 
-    WinnerIs();
-    
+    Buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (EndGame) {
+                PlayerScore = 0;
+                ComputerScore = 0;
+                EndGame = Boolean(false);
+            }
+            else {
+                console.log(button.id)
+                ScoreGame(button.id,GetComputerChoice());
+            }
+            
+        });
+    });
 }
 
-function PlayerChoice() 
-{
-
-    let PlayerChoice;
-    do {
-        PlayerChoice = prompt("Enter rock paper or scissors: ")
-        if (PlayerChoice != null) {PlayerChoice = PlayerChoice.toLowerCase();}
-        if (PlayerChoice === "rock" || PlayerChoice === "paper" || PlayerChoice === "scissors") {
-            console.log("you entered: " + PlayerChoice);
-
-        } else {
-            console.log("You entered: " + PlayerChoice + " which doesn't work, try again");
-        }
-    
-    } while (PlayerChoice !== "rock" && PlayerChoice !== "paper" && PlayerChoice !== "scissors") 
-    return PlayerChoice;
-}
-
-function GetComputerChoice()
-{
-    const CHOICES = ["rock", "paper", "scissors"];
-    let randomGuess = Math.round(Math.random() * (CHOICES.length - 1) );
-    console.log("randomGuess: " + randomGuess + "  choicesarray.length= " + CHOICES.length )
+function GetComputerChoice() {
+    const CHOICES = ButtonList
+    let randomGuess = Math.round(Math.random() * (CHOICES.length - 1));
+    console.log("randomGuess: " + CHOICES[randomGuess])
     return CHOICES[randomGuess];
 }
 
-function ScoreGame(PC, GCC) 
-{
-    if (PC === "rock" && GCC === "rock" 
-    || PC === "paper" && GCC === "paper"
-    || PC === "scissors" && GCC === "scissors" )
-    {
-        console.log("There was a tie?!");
+function ScoreGame(PC, GCC) {
+    if (PC === "Rock" && GCC === "Rock"
+        || PC === "Paper" && GCC === "Paper"
+        || PC === "Scissors" && GCC === "Scissors") {
+        Info.textContent = ("There was a tie?!");
     }
 
-    else if (PC === "rock" && GCC === "scissors") {
-        console.log("Woh, you used Rock and it's super effective Computer's paper");
+    else if (PC === "Rock" && GCC === "Scissors") {
+        Info.textContent = "Woh, you used Rock and it's super effective Computer's Paper";
         PlayerScore++;
     }
 
-    else if (PC === "paper" && GCC === "rock") {
-        console.log("paper swoops in and tackles computer's rock for the touchdown");
+    else if (PC === "Paper" && GCC === "Rock") {
+        Info.textContent = "Paper swoops in and tackles computer's Rock for the touchdown";
         PlayerScore++;
     }
-    else if (PC === "scissors" && GCC === "paper") {
-        console.log("you gave computer a paper cut");
+    else if (PC === "Scissors" && GCC === "Paper") {
+        Info.textContent = "you gave computer a Paper cut";
         PlayerScore++;
     }
 
-    else if (GCC === "rock" && PC === "scissors") {
-        console.log("Computer throws a rock at your knees");
+    else if (GCC === "Rock" && PC === "Scissors") {
+        Info.textContent = "Computer throws a Rock at your knees";
         ComputerScore++;
     }
 
-    else if (GCC === "paper" && PC === "rock") {
-        console.log("computer wraps your rock up in paper and drops it into the ocean");
+    else if (GCC === "Paper" && PC === "Rock") {
+        Info.textContent = "computer wraps your Rock up in Paper and drops it into the ocean";
         ComputerScore++;
     }
-    else if (GCC === "scissors" && PC === "paper") {
-        console.log("paper mache");
+    else if (GCC === "Scissors" && PC === "Paper") {
+        Info.textContent = "Paper mache";
         ComputerScore++;
     }
 
     else {
-        console.log("under no reason, should you be seeing this message");
+        Info.textContent = "under no reason, should you be seeing this message";
     }
-        console.log("PlayerScore: " + PlayerScore + "\tComputerScore: " + ComputerScore);
+
+    console.log("PlayerScore: " + PlayerScore + "\tComputerScore: " + ComputerScore);
+    Score.textContent = `]-[${PlayerScore}:${ComputerScore}]-[`
+    if (ComputerScore > 2 || PlayerScore > 2) {
+        WinnerIs();   
+        EndGame = Boolean(true);
+    }
+
 
 }
 
 function WinnerIs() {
     if (PlayerScore > ComputerScore) {
-        console.log("You Win!")
+        Info.textContent = "You Win!\nClick to Start Again"
     }
 
     else {
-        console.log("Computer Wins! AI SMARTER THAT HUMAN?")
+        Info.textContent = "Computer Wins! AI SMARTER THAT HUMAN?\nClick to Start Again"
     }
 
-    console.log("FInal Score Human: "+ PlayerScore + " - Computer: " + ComputerScore)
+    console.log("Final Score Human: " + PlayerScore + " - Computer: " + ComputerScore)
 }
 
+function CreateButtons() {
+    // /<button id="Rock">Rock</button>
 
-StartDiceGame();
+    const Middle = document.querySelector("Middle");
+    ButtonList.forEach(element => {
+        var button = document.createElement('button');
+        button.id = element;
+        button.textContent = element;
+        console.log("created button: " + button.id)
+        Middle.append(button);
+    });
+}
+
+CreateButtons();
+StartRPS();

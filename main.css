@@ -1,0 +1,116 @@
+:root {
+    --color-1: #073b4c;
+    --color-2: #118ab2;
+    --color-3: #06d6a0;
+    --color-4: #ffd166;
+    --color-5: #ef476f;
+
+}
+
+body {
+    display:flex;
+    flex-direction: column;
+    background-color: black;
+    flex:auto;
+    align-items: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+
+Top {
+    display: flex;
+    min-height: max-content;
+    height: 25vh;
+    background: var(--color-3);
+    justify-content: right;
+    align-items: center;
+    border:#073b4c;
+    /* border-style: outset; */
+}
+TitleArea {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    margin: auto;
+    left:0; right:0; 
+    font-size:x-large;
+    gap: 16px;
+}
+
+Top Img {
+    height:25vh;
+    display:flex;
+    
+}
+
+Middle {
+    display: flex;
+    background-color: var(--color-2);
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+    border:#ef476f;
+    /* border-style:inset; */
+}
+
+Bottom {
+    display: flex;
+    background-color: var(--color-1);
+    height: 25vh;
+    border:#06d6a0;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size:xx-large;
+    /* border-style: outset; */
+    gap: 32px;
+}
+
+
+
+
+Top, Middle, Bottom {
+    border-width: 16px;
+    border-style: ridge;
+        width:95%
+
+}
+
+ScoreArea {
+    border: var(--color-3);
+    color:#ef476f;
+    border-style: outset;
+    display:flex;
+    padding: 4px;
+    border-width: 8px;
+}
+
+Info {
+    color:#ffd166;
+}
+
+button {
+    border-radius: 33%;
+    font-size: 36px;
+    padding: 36px;
+    width:300px;
+    min-width: 100px;
+    max-width: 50%;
+    margin: 2%;
+    border-style: outset;
+    border-width: 16px;
+    background-color: var(--color-4);
+}
+
+#Rock {
+    border-top-left-radius: 0%;
+}
+
+#Scissors {
+    border-bottom-right-radius: 0%;
+}
+
+button:hover {
+    background-color: var(--color-5);
+}
